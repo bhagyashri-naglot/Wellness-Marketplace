@@ -1,4 +1,4 @@
-package com.example.wellnessbackend.controller;
+ package com.example.wellnessbackend.controller;
 
 import com.example.wellnessbackend.dto.NotificationResponseDto;
 import com.example.wellnessbackend.entity.Notification;
@@ -6,6 +6,9 @@ import com.example.wellnessbackend.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,18 @@ public class NotificationController {
 
         return ResponseEntity.ok("Notification created successfully");
     }
+    
+    @GetMapping
+    public ResponseEntity<List<NotificationResponseDto>> getMyNotifications(
+            @AuthenticationPrincipal UserDetails userDetails
+    ) {
+        return ResponseEntity.ok(
+                notificationService.getAllNotificationsByUsername(
+                        userDetails.getUsername()
+                )
+        );
+    }
+
 
     // ✅ Get all notifications for a user
     @GetMapping("/{userId}")

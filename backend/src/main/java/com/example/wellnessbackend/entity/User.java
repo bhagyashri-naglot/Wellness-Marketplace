@@ -1,4 +1,4 @@
-package com.example.wellnessbackend.entity;
+ package com.example.wellnessbackend.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

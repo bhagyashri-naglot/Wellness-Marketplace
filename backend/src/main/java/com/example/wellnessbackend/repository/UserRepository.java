@@ -1,4 +1,4 @@
-package com.example.wellnessbackend.repository;
+ package com.example.wellnessbackend.repository;
 
 import com.example.wellnessbackend.entity.Role;
 import com.example.wellnessbackend.entity.User;

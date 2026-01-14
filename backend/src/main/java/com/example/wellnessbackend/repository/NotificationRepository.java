@@ -1,4 +1,4 @@
-package com.example.wellnessbackend.repository;
+ package com.example.wellnessbackend.repository;
 
 import com.example.wellnessbackend.entity.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +14,7 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 
     // Fetch unread notifications only
     List<Notification> findByUserIdAndReadFalseOrderByCreatedAtDesc(Long userId);
+
+    List<Notification> findByUserId(Long userId);
+
 }

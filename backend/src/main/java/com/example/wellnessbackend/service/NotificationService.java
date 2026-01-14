@@ -1,4 +1,6 @@
-package com.example.wellnessbackend.service;
+ package com.example.wellnessbackend.service;
+import java.util.List;
+import com.example.wellnessbackend.entity.User;
 
 import com.example.wellnessbackend.dto.NotificationResponseDto;
 import com.example.wellnessbackend.entity.Notification;
@@ -7,15 +9,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+ import java.util.Optional;
 import java.util.stream.Collectors;
+
+import com.example.wellnessbackend.repository.UserRepository;
+ 
+ 
 
 @Service
 @RequiredArgsConstructor
 public class NotificationService {
 
     private final NotificationRepository notificationRepository;
+     private final UserRepository userRepository;
 
     // Create a new notification
     public void createNotification(Long userId, String type, String message) {
@@ -66,4 +72,15 @@ public class NotificationService {
                 .createdAt(notification.getCreatedAt())
                 .build();
     }
+    public List<NotificationResponseDto> getAllNotificationsByUsername(String username) {
+
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        return notificationRepository.findByUserId(user.getId())
+                .stream()
+                .map(this::mapToDto)
+                .toList();
+    }
+
 }
