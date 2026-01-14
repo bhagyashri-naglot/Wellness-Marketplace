@@ -1,3 +1,6 @@
+import NotificationList from "./components/notifications/NotificationList";
+import PrivateRoute from "./routes/PrivateRoute";
+
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -60,6 +63,16 @@ export default function App() {
             </PrivateRoute>
           }
         />
+
+
+<Route
+  path="/notifications"
+  element={
+    <PrivateRoute>
+      <NotificationList />
+    </PrivateRoute>
+  }
+/>
 
         <Route
           path="/my-sessions"
